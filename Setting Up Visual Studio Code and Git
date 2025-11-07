@@ -1,4 +1,4 @@
-# Setting Up Git and GitHub – **Diaz, Zianne P.**
+Setting Up Git and GitHub – Diaz, Zianne P.
 Introduction
 Welcome to the Git and GitHub setup guide. This document will walk you through installing the necessary tools, configuring Git, and using GitHub for version control. It is written for beginners, with step-by-step instructions and explanations for each command and action. By the end, you will have a project folder under version control with Git, connected to a GitHub repository, and you’ll know how to continue working with it using both the command line and Visual Studio Code (VS Code). What this guide covers:
 Installing Visual Studio Code (VS Code) and Git on Windows and macOS.
