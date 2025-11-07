@@ -1,0 +1,351 @@
+Setting Up Git and GitHub – Diaz, Zianne P.
+Introduction
+Welcome to the Git and GitHub setup guide. This document will walk you through installing the necessary tools, configuring Git, and using GitHub for version control. It is written for beginners, with step-by-step instructions and explanations for each command and action. By the end, you will have a project folder under version control with Git, connected to a GitHub repository, and you’ll know how to continue working with it using both the command line and Visual Studio Code (VS Code). What this guide covers:
+Installing Visual Studio Code (VS Code) and Git on Windows and macOS.
+Creating a project folder and verifying your installations.
+Opening the project in VS Code for editing.
+Configuring Git with your name and email (your identity for commits).
+Initializing a local Git repository and making your first commit.
+Creating a repository on GitHub and pushing your local repo to GitHub.
+Using VS Code’s Source Control features to manage changes.
+Syncing changes (pulling/pushing) and writing good commit messages.
+Cloning an existing repository from GitHub.
+Maintaining a good README.md with Markdown, including examples of Markdown formatting.
+Throughout this guide, code blocks will show example commands, and bold text will highlight important points. We also include warnings about common mistakes to avoid, so you can confidently use Git and GitHub for your projects. Let’s get started!
+Prerequisites
+A computer running Windows or macOS with internet access.
+A GitHub account – sign up at github.com if you don’t have one (it’s free).
+Basic familiarity with using a command-line interface (not strictly required, but helpful since we will use some terminal commands).
+Willingness to learn 😀 (Git can seem complex at first, but we’ll explain each step).
+Installing Visual Studio Code (VS Code)
+Visual Studio Code is a popular, free code editor that we will use to edit files and interact with Git. Download it from the official website and install it for your operating system.
+On Windows:
+Download VS Code for Windows: Visit the official VS Code website and download the installer (.exe) for Windows.
+Run the Installer: Double-click the downloaded file and follow the setup wizard. During installation, it’s recommended to enable the option “Add to PATH” (this allows you to open folders in VS Code from the command line). Also allow the installer to register VS Code as the default editor for common file types if prompted
+stackoverflow.com
+lancaster.ac.uk
+.
+Launch VS Code: After installation, launch Visual Studio Code. You should see the VS Code window with a Welcome page.
+On macOS:
+Download VS Code for macOS: Go to the VS Code website and download the Apple Disk Image (.dmg) file for macOS.
+Install: Open the downloaded .dmg file. In the window that appears, drag the Visual Studio Code.app icon into your Applications folder
+code.visualstudio.com
+. This installs VS Code.
+Launch VS Code: Open the Applications folder and double-click Visual Studio Code to launch it. (You may also pin it to your Dock for easy access
+code.visualstudio.com
+.)
+Tip (macOS command line usage): If you want to be able to open folders in VS Code from the Terminal by typing code, you need to add VS Code to your PATH. VS Code can do this for you: Open VS Code, press Cmd+Shift+P to open the Command Palette, and type “shell command”. Select Shell Command: Install 'code' command in PATH
+code.visualstudio.com
+. After that, restart your Terminal. You will then be able to run code . to open the current folder in VS Code
+code.visualstudio.com
+. (On Windows, the installer’s “Add to PATH” option does this for you.)
+Installing Git
+Git is the version control software we’ll use. You need to install Git so that you can run git commands on your computer and so that VS Code’s source control features will work.
+On Windows:
+Download Git: Go to the official Git website git-scm.com and download the Git for Windows installer. (Choose the latest stable release.)
+w3schools.com
+Run the Installer: Double-click the installer .exe and follow the prompts. You can accept the default settings by clicking “Next” on each step
+w3schools.com
+. The default options are fine for most users. This will install both Git and an application called Git Bash
+w3schools.com
+.
+Git Bash is a Terminal application that lets you run Git and Unix-like commands on Windows. We will use either Git Bash or VS Code’s integrated terminal for Git commands.
+Finish Installation: Complete the setup. Once done, you can find “Git Bash” in your Start menu and use it to run Git commands, or just use any terminal (Command Prompt, PowerShell) since Git is now in your PATH.
+On macOS:
+macOS may already have Git, or it will prompt to install Xcode Command Line Tools when you first try to run git. An easy way to install Git on Mac is through Homebrew (a package manager). If you have Homebrew, open Terminal and run:
+brew install git
+This will install Git if not already installed
+w3schools.com
+.
+Alternatively, you can download the Git for macOS installer from git-scm.com (it’s a .dmg or package file) and run it. Then follow the prompts to install Git.
+Once installed, open Terminal (Finder > Applications > Utilities > Terminal) and run git --version to verify it (steps to verify are detailed below).
+Note: Installing Git does not provide a fancy user interface – it enables the git command in your terminal. Don’t worry, we’ll mostly use just a few commands. Also, VS Code will recognize Git automatically if it’s installed
+code.visualstudio.com
+.
+Creating the Project Folder
+Next, create a folder for your project. This will be the directory where your code and documentation (including the README) reside, and which we will turn into a Git repository.
+Choose a Location: Pick a convenient location on your computer for the project, such as your Desktop or Documents.
+Create a New Folder: You can create the folder using your file explorer (e.g., right-click > New > Folder, and name it something like my-first-project), or by using the command line:
+Windows (Command Prompt/PowerShell): mkdir my-first-project
+macOS/Linux or Git Bash on Windows: mkdir my-first-project (the command is the same).
+If you used the command line, optionally navigate into the folder with cd my-first-project. Otherwise, remember where you created the folder for the next step.
+At this point, you have an empty project folder ready. We will initialize Git in this folder soon, but first, let’s open it in VS Code.
+Opening the Project in VS Code
+Now, open the newly created project folder in Visual Studio Code so you can start adding files and using the editor’s features:
+Using VS Code Menu: Open VS Code, click File > Open Folder (or Open on macOS) and browse to find your my-first-project folder. Select it and click Open. VS Code will open this folder, and you should see the folder name in VS Code’s Explorer sidebar.
+Using Command Line (alternative): If you installed the code command in PATH, you can open the folder directly from a terminal:
+cd path/to/my-first-project
+code .
+The code . command opens the current directory (represented by .) in VS Code
+code.visualstudio.com
+. This is a handy shortcut.
+Once the folder is open in VS Code, you should see an Explorer view on the left showing the folder (which is empty for now). You can now create files and work on your project in VS Code.
+Creating a README.md File
+Let’s create a README.md file in your project as a starting point. The README is a text file (written in Markdown format) that introduces and documents your project.
+In VS Code, click the New File icon in the Explorer (or right-click in the Explorer and choose New File). Name the file README.md.
+Add a title to the README, for example:
+# My First Project
+Save the file (Ctrl+S or Cmd+S).
+By creating this README, we have an initial file to add to Git. We will also use it to practice Markdown formatting later on. Now that our project folder has at least one file, we can set up Git.
+Verifying Git Installation
+Before configuring and using Git, let’s verify that Git was installed correctly and is available:
+Open a Terminal: In VS Code, open an integrated terminal by clicking Terminal > New Terminal from the menu (or use shortcut: Ctrl+ on Windows, Cmd+ on Mac). This will open a terminal at the bottom of VS Code, usually starting in your project folder.
+Check Git Version: In the terminal, type:
+git --version
+and press Enter. You should see output like git version 2.x.y. If you see a version number, Git is installed and working. (If you get an error like “command not found”, double-check that Git was installed and your terminal is using the correct PATH. On Windows, you may need to restart VS Code or your computer after installation for the PATH to update.)
+(Optional) Check VS Code version: You can also check VS Code’s version by running:
+code --version
+which should print the version if the code command is set up. This is optional; the main thing is Git.
+Now we have VS Code open in our project and Git is available. Next, we will configure Git with our personal information and initialize a Git repository in the folder.
+Configuring Git Identity (Name and Email)
+Git attaches an author name and email to each commit (change snapshot) you make. We need to configure your Git user name and email address. It’s good to use the same name and email as your GitHub account so that your commits link to your profile on GitHub. In the VS Code terminal (or any terminal), run the following commands, one at a time:
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+Replace "Your Name" with your actual name (e.g., "Zianne Diaz"), and your.email@example.com with your email. The quotes are only needed if there are spaces in the name or email. These commands set your name and email in Git’s global configuration (~/.gitconfig file) so that all your repositories use this identity by default
+code.visualstudio.com
+. You only need to do this once on each machine. If you ever need to check what is set, you can run:
+git config --global --list
+This will list your global settings (you should see user.name and user.email among them). Now any commits you create will be marked with this name and email. Why this matters: When you push commits to GitHub, your commits will show this name and email. If the email matches one associated with your GitHub account, GitHub will link the commit to you. It also provides accountability and traceability for changes.
+Initializing a Local Git Repository
+With Git installed and configured, we can turn our project folder into a Git repository (a repo). Initializing a repository means that Git will start tracking changes in this folder.
+Initialize Git: In the terminal, make sure you are still in the my-first-project folder (the VS Code terminal should already be there). Run:
+git init
+This command creates a new, empty Git repository in the current folder by creating a hidden .git directory
+datacamp.com
+. You won’t see .git in VS Code’s explorer by default (since it’s hidden), but it’s there. This .git folder stores all the version history and configuration for your repo. After this, VS Code’s bottom status bar might show the branch name (likely “master” or “main”) and the Source Control icon on the left will become active, indicating Git is now tracking this folder
+code.visualstudio.com
+. Note: Depending on your Git version, the default initial branch might be named master or main. Newer Git and GitHub use main as the default. To avoid confusion, we will assume main as the primary branch name. If your repo is on master by default, you can rename it to main in the next steps.
+Check Repository Status: Run:
+git status
+This will show the status of the repo. Since we only have a README.md file and we just initialized, you should see that file listed under “Untracked files”. “Untracked” means Git sees the file but isn’t tracking versions of it yet. That’s expected; we haven’t added the file to Git’s index (staging area) yet.
+Stage the README file: To tell Git to start tracking the README (and any other new files), we need to add it to the staging area. Staging means preparing it to be committed. You can add files one by one or all at once. Here, since we only have one file, we’ll add everything in the current folder:
+git add .
+The . means “current directory”, so this command stages all changes (new, modified, deleted files) in the project
+datacamp.com
+. After this, if you run git status again, the README.md should now be listed under “Changes to be committed” (meaning it’s staged). Common Mistake – forgetting to stage: If you skip git add and go straight to git commit, Git won’t have any changes to commit (since nothing was staged) and you might see a message like “no changes added to commit” or “nothing to commit”. Always stage your changes with git add before committing. If you’re unsure, git status will tell you what’s staged and what’s not.
+Commit the staged file: Now we will create our first commit. A commit is a snapshot of the repository’s state (the files you’ve staged) with a message describing the changes. Run:
+git commit -m "Initial commit: add README"
+The -m "Message" part lets you specify a commit message inline. Here we wrote "Initial commit: add README" as the message. You can write anything descriptive; the goal is to summarize what this commit does (adding the README file in this case). When you press Enter, Git will create the commit. You should see output summarizing the commit, e.g., something like:
+[master (root-commit) abc1234] Initial commit: add README
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+This output shows the new commit on branch master (or main), the commit ID (abc1234... a short hash), and that one file was added. What happened? You just recorded the state of README.md into Git’s history. If you modify the README or add other files later, you’ll make new commits to record those changes. Commits allow you to revert or review changes and collaborate with others. Commit message tip: Write messages in the imperative present tense (e.g., “Add README” not “Added README”), and be concise yet descriptive about the change. This helps when looking at history. In our example, “Initial commit: add README” is simple and clear.
+(Optional) Rename master to main: If your Git’s default branch was named master and you prefer to use main (which is the default on GitHub), you can rename it now since we have just one commit. Run:
+git branch -M main
+This forces (-M) the current branch to be named “main”. If your branch was already called main, this does nothing. If it was master, now it’s main. We do this to match GitHub’s default, which helps avoid confusion when pushing
+docs.github.com
+.
+At this stage, you have a local Git repository with one commit (the README). Congratulations! 🎉 You have set up Git for your project. Now it’s time to put this repository on GitHub so you can share it or back it up in the cloud.
+Creating a Repository on GitHub
+In order to push (upload) our local repository to GitHub, we need to create an empty repository on GitHub to receive our code. Think of GitHub as a hosting service for Git repositories, enabling collaboration and remote access.
+Log in to GitHub: Open your web browser, go to github.com, and log in to your account.
+Create a New Repository: Click the + button (usually in the top right of GitHub’s interface) and select “New repository”. You will be taken to a form to create a new repo.
+Repository Name: Enter a name for your repository, e.g., my-first-project (it can be the same as your folder name, but it could also be different).
+Description: You can enter a short description (optional).
+Visibility: Choose Public or Private. Public means anyone can see your code; Private means only you (and collaborators you invite) can see it. If this is just a practice, public is fine.
+Initialize options: Do not check “Add a README”, “Add .gitignore”, or “Add a license” here. We already have a README locally and we want to push it. Leaving these unchecked ensures the GitHub repo starts empty
+docs.github.com
+. (If you add one of these now, the remote repo will have a commit that we don’t have locally, complicating the first push with a merge issue.)
+Click Create repository.
+GitHub Repo Setup Page: After creation, GitHub will show you some instructions for pushing an existing repository from the command line. You should see something like:
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/YourUsername/my-first-project.git
+git branch -M main
+git push -u origin main
+GitHub basically provides the commands we need to run. We have already done git branch -M main (if needed) in the earlier step. The critical ones are adding the remote and pushing. We’ll do that next.
+Copy the Repository URL: On the GitHub repo page, find the “Code” button (usually green) and copy the repository URL. Make sure it’s the HTTPS URL (it should start with https://github.com/....git). We’ll use that in the next command. (It might look like https://github.com/YourUsername/my-first-project.git). Alternatively: You can copy the URL directly from the instructions GitHub gave (after git remote add origin). Either way, we need that URL.
+Pushing the Local Repository to GitHub
+Now we will connect our local repo to the remote repo on GitHub and push our commits to it. This will upload the history (in this case just one commit) and files to GitHub.
+Add Remote “origin”: In your VS Code terminal, enter the command (use your repository’s URL in place of the example URL below):
+git remote add origin https://github.com/YourUsername/my-first-project.git
+Let’s break this down: git remote add is adding a remote repository link to our local repo. “origin” is the default name given to the primary remote (you can have multiple remotes, but origin is common for “the main GitHub repo”)
+datacamp.com
+. The URL is telling Git where the remote repository is online. After this, our local Git knows that “origin” refers to the GitHub repository URL. To verify the remote was set correctly, you can run git remote -v which will list the remote name and URL
+docs.github.com
+. You should see “origin” with the GitHub URL for fetch and push.
+Push to GitHub: Now push your commits to the GitHub repo by running:
+git push -u origin main
+The git push command sends your commits to the remote. We specify origin (the remote name) and main (the branch name) because this is our first push to this remote
+graphite.dev
+. The -u flag (short for --set-upstream) is important: it sets this as the upstream tracking branch
+datacamp.com
+. In simple terms, -u tells Git “remember that I’m linking my local main with the remote main on origin” so that future pushes and pulls can be done with just git push or git pull without specifying the branch
+datacamp.com
+. What to expect: Git will attempt to connect to GitHub. If you’ve never pushed before or haven’t authenticated, one of a few things can happen:
+Git might prompt for your GitHub username and password (or token). Since August 2021, GitHub no longer accepts account passwords for Git operations
+github.com
+. Instead, you should use a Personal Access Token (PAT) in place of your password. If you haven’t set this up:
+Go to GitHub Settings > Developer settings > Personal access tokens and generate a token (classic tokens or fine-grained tokens with repo access). Copy the token.
+When Git asks for your username, enter your GitHub username. When it asks for password, paste the token (it will not show characters as you paste for security). Then press Enter.
+Alternatively, on Windows and macOS, the Git installer might have also set up a credential manager which will pop up a sign-in window or handle the token for you. Follow any login prompts.
+Once authenticated, the push will proceed.
+When the push is successful, you’ll see output ending in something like: Branch 'main' set up to track remote branch 'main' from 'origin'. This confirms the upstream tracking. Now your code (the README) and commit are on GitHub.
+Check GitHub: Go back to the GitHub page for your repository and refresh it. You should now see the README.md file listed, and the commit message “Initial commit: add README” with your name. Hooray, your local repo is now mirrored on GitHub!
+Common Mistake – pushing to the wrong branch: If you get an error on push about the branch, or if you accidentally pushed to “master” when the remote expects “main” (or vice-versa), don’t panic. Ensure that you created the remote repo empty (no initial commit on GitHub). If your local branch is named differently:
+You can either rename your local branch to match (as we did with git branch -M main earlier), or push specifying the remote branch name. For example, if your local branch is master but you want to push to main on GitHub, use: git push -u origin master:main (this pushes local master to remote main).
+It’s simpler to just use the same name on both sides (hence using main everywhere in this guide). If you do create a branch name mismatch, you might end up with two separate branches on GitHub. To fix that, you can rename or delete the wrong one on GitHub and push again correctly.
+Tip: If you ever want to change which remote URL “origin” points to (for example, if you mistyped the URL or want to switch from HTTPS to SSH), you can use git remote set-url origin <new-url>. Or remove and re-add the remote. Now you have a GitHub repository connected. Next, we’ll see how to use VS Code’s source control interface for making commits, and how to keep your work in sync.
+Using Source Control in VS Code
+Visual Studio Code has built-in support for Git, which can make many version control tasks easier through a graphical interface. Let’s explore how to use VS Code’s Source Control view for Git operations. Open the Source Control panel by clicking the third icon in the left toolbar (it looks like a branch or three circles connected by lines). You should see a view that either shows repository information or prompts to initialize a repository (if you hadn’t done git init). Since we already initialized the repo, you’ll see the current status of the repo.
+If you have no pending changes (for example, right after pushing, nothing is modified), the Source Control panel will likely just show the repository name and a message like “Working tree clean” or no changes.
+Let’s make a small change to see how VS Code reflects it: open the README.md file and add another line (e.g., add “This is a test project.” under the title). Save the file. Now look at the Source Control icon — it should show a number (1) indicating one file has changes.
+VS Code Source Control view showing changed files and staging area. The file README.md is listed under CHANGES (unstaged changes). You can click the + next to the file to stage it, moving it to STAGED CHANGES. Above, there is a text box to enter a commit message. This interface lets you manage version control without typing Git commands.
+code.visualstudio.com
+code.visualstudio.com
+ In the VS Code Source Control view:
+Unstaged Changes: Under CHANGES, you’ll see files that have been modified but not yet staged (in our case, README.md). Click the file name to see a diff – VS Code will show what’s changed in that file (e.g., lines added or removed).
+Stage Changes: To stage the file, hover over it and click the + (plus) icon, or right-click the file and choose Stage Changes. The file will move from CHANGES to STAGED CHANGES. (If you have multiple files and want to stage all at once, you can click the + next to CHANGES title or use Stage All Changes from the ... menu.)
+code.visualstudio.com
+Enter Commit Message: With changes staged, find the text input box above that says "Message (press Ctrl+Enter to commit on main)". Click in that box and type a commit message, for example: Update README with project description.
+Commit: You can commit in a few ways: press Ctrl+Enter (Cmd+Enter on Mac) as indicated, or click the ✓ (checkmark) icon that appears in the toolbar of the Source Control view. VS Code will create the commit. The changes will disappear from the CHANGES list (since now there are no uncommitted modifications). If successful, you might see a notification or just see the Source Control number go away.
+Push: If you have an upstream set (we did with -u earlier), VS Code will likely show an icon in the status bar (bottom left) with an up-arrow (⟰) indicating there are commits to push. You can push by clicking that or by opening the ... menu in Source Control and selecting Push. Alternatively, there’s a Synchronize Changes icon (⇅) that does both pull and push in one click
+code.visualstudio.com
+. Clicking Synchronize Changes will push your commit to GitHub (and also fetch/pull any updates from GitHub). You might be prompted to sign in or provide a token if you hadn’t already; VS Code can handle GitHub auth through its GUI if needed.
+After pushing via VS Code, check your GitHub repository in the browser again – you should see the new commit and updated README content. Key VS Code Source Control features:
+You can perform Git operations without leaving the editor: stage/unstage by clicking icons, commit with a message box, push and pull with a click.
+The bottom status bar shows your current branch (e.g., “main”) and if you have unsynced changes. If your branch is tracking a remote, the Synchronize Changes button (⇅) will appear to quickly push and pull
+code.visualstudio.com
+.
+The ... menu in the Source Control panel has more actions (e.g., Pull, Sync, Publish Branch if the branch isn’t on remote yet, etc.). Explore it to see shortcuts for common tasks.
+If you have multiple repos open (in a workspace), VS Code can manage them separately in the Source Control view. In our case, just one repo is open.
+Using the VS Code UI can be more intuitive for many, but it’s still good to know the command-line steps (which we covered) because it helps understand what’s happening under the hood, and not every environment will have VS Code.
+Syncing Changes and Best Practices for Commits
+When working with Git and GitHub, especially if you collaborate with others or use multiple devices, it’s important to sync changes regularly and follow some best practices:
+Pull before you push (when collaborating): If you’re working with others, always git pull (or click Pull in VS Code) to fetch and merge any changes from the remote before pushing your own, to avoid conflicts. The “Synchronize” button in VS Code will do a pull then a push
+code.visualstudio.com
+. If you are the only one working on the repo, you typically won’t have new remote changes except what you pushed from this machine, so pulling isn’t needed in that scenario (but it won’t hurt either).
+Commit often: Make commits for logical chunks of work. Don’t wait to commit a huge batch of changes at once. Small, frequent commits with clear messages are easier to manage and understand later.
+Write good commit messages: As mentioned, messages should be descriptive. A good format is “<verb> <what> <why>”, for example: “Fix typo in README” or “Add installation instructions to documentation”. This helps others (and future you) know what changed without reading the code diff.
+Staging chunks: You don’t always have to add all changed files to a single commit. You can stage only some files (or even parts of a file) to commit related changes separately. VS Code even allows staging selected lines/hunks in the diff view. This way, if you happened to work on two different tasks in one go, you can commit them separately.
+Avoid committing secrets or large files: Be careful not to commit sensitive information (passwords, keys) or huge files. Use a .gitignore file to exclude things that shouldn’t be in version control (like node_modules, build outputs, etc.). For beginners, this might not come up immediately, but it’s good to be aware.
+Branches: In this guide we used the main branch only. As you advance, you might use separate branches for new features or experiments and then merge them. VS Code has support for creating and switching branches easily (e.g., click the branch name in the bottom left). For now, on small projects, you might not need multiple branches.
+Common Mistake – untracked files not committed: Always check git status or your Source Control panel. If you created a new file but forget to git add it, it remains untracked and won’t be in your commits or on GitHub. Ensure you stage new files.
+Common Mistake – forgetting to push: If you commit locally but forget to push, your GitHub remote will not have those new commits. If you then switch computers or someone else pulls, they won’t see your changes. So remember to push whenever you have commits that you want on GitHub. VS Code shows an upward arrow with a number of commits ready to push – that’s a visual reminder.
+Dealing with conflicts: If you and someone else edit the same part of a file and both push, the second pusher will get an error and you’ll need to merge changes. That’s a more advanced topic; GitHub will indicate the conflict. You’d do a git pull and fix the conflict manually then commit. For now, if you’re working solo, you shouldn’t hit this.
+In summary, synchronize often, keep your local and remote in sync. Use git pull to get updates, git push to share yours. Commit with intent and clarity. These habits will save you headaches.
+Cloning a Repository from GitHub
+Cloning is the process of downloading an existing Git repository from a server (like GitHub) to your local machine. If you have a repository on GitHub (like the one we just pushed) and you want to get a copy on another computer, or if you want to contribute to someone else’s project, you would clone it. Let’s go through the steps to clone a repository:
+Find the repository URL: On GitHub, go to the main page of the repository you want to clone. For your own repo, that would be my-first-project we created. Click the Code button and copy the URL (just like we did earlier). Make sure to copy the HTTPS URL (or SSH if you set up SSH keys, but HTTPS + token is simpler for beginners). It will look like https://github.com/Username/RepositoryName.git.
+Choose a local folder: Decide where on your computer you want to put this repository. For example, maybe a Projects folder or the Desktop. You don’t need to create a subfolder for the repo – Git will create one as part of the clone.
+Run the clone command: Open a terminal (or use VS Code’s terminal). Navigate (cd) to the folder where you want the repo to live. Then run:
+git clone https://github.com/YourUsername/my-first-project.git
+Replace the URL with the one you copied.
+This command will:
+Create a new folder named after the repository (e.g., my-first-project) in the current directory.
+Download all the files and the entire Git history from the GitHub repo into that folder.
+Set up the remote named origin automatically, pointing to the GitHub repo.
+You should see output like:
+Cloning into 'my-first-project'...
+remote: Enumerating objects: X, done.
+remote: Counting objects: X, done.
+remote: Compressing objects: X% (Y/Z), done.
+Receiving objects: 100% (...), done.
+Resolving deltas: 100% (...), done.
+and maybe some checks for connectivity. If everything is fine, you now have a local copy.
+Open the cloned folder in VS Code: Just as before, you can cd my-first-project and do code ., or use File > Open Folder in VS Code. This folder is a fully-fledged Git repository on your machine, with the history. If it’s your own repo and you’re logged in or have credentials set, you can immediately push/pull to and from origin. If it’s someone else’s repo and it’s public, you can still push changes to your own fork or if you have permission; otherwise you typically would make a fork on GitHub. That’s beyond our scope here.
+Working with a cloned repo: It’s essentially the same as what we did earlier, but without the need to git init (it’s already a repo) or add remote (remote is set). You can create new files, edit, stage, commit, and push. The only difference is if you don’t own the repo (like you cloned someone else’s and don’t have push access), then you won’t be able to push to their repo. In that case, you’d push to your own copy of the repository (via a GitHub fork) or just keep your changes locally. For your own projects, cloning on another machine allows you to work from there and push to the same remote. Tip: VS Code also provides a shortcut for cloning: if you open the Source Control view without a folder open, it offers a “Clone Repository” option
+code.visualstudio.com
+. Clicking that will prompt you for the URL and then ask where to save it, then do the clone and open the folder automatically. This can simplify the process if you prefer a GUI approach. Now you know how to clone, which is crucial when starting on a new machine or sharing a project with others.
+Maintaining an Up-to-Date README (Documentation and Markdown)
+Every good project should have a README.md file that explains the project. We started one for our project, but maintaining it is an ongoing task. Let’s discuss how to keep it updated and use Markdown to make it clear and nicely formatted.
+Why Update the README?
+It’s the first thing people see when they visit your repository on GitHub. It should tell them what the project is, how to use it, how to install/run it, etc.
+It’s a convenient place to document changes or features, and even for yourself, it’s helpful to write down notes.
+As your project evolves, the README should evolve too. For example, if you add a new feature, you might update the usage instructions in the README.
+Writing in Markdown
+Markdown is a simple markup language that formats text. We’re using it right now in this guide! Here are some basic Markdown syntax examples that you can use in your README (and any .md file):
+Headings: Use # for headings.
+# for a top-level heading, ## for subheading, ### for third level, etc. For example:
+# Heading 1
+## Heading 2
+### Heading 3
+This will render as large and smaller headings. (We used a level-1 heading at the very top of this guide for the title.)
+Bold and Italic text:
+To make text bold, wrap it with **double asterisks** or __double underscores__.
+To make text italic, wrap it with *single asterisk* or _single underscore_.
+For example: **Bold text** and *italic text* becomes Bold text and italic text
+github.com
+. You can also combine for bold italic if needed.
+Lists:
+Unordered lists (bullets) use - or * or + at the start of lines.
+- Item 1
+- Item 2
+  - Sub-item (indent by 2 spaces or a tab)
+* Another item
+This will render as bullet points.
+Ordered lists (numbered) use numbers followed by a period.
+1. First step
+2. Second step
+   1. Indented sub-step
+3. Third step
+The numbers will automatically adjust when rendered, so you can even just put 1. for all of them and Markdown will number them correctly.
+Code:
+To denote inline code or commands within a sentence, wrap the text in single backticks (`). For example, Use the `git status` command. renders as “Use the git status command.”
+For longer code or multi-line code blocks (like configuration or a snippet of code), use triple backticks to open and close the block. You can optionally specify a language for syntax highlighting after the opening backticks, likepython or ```bash. For example:
+\`\`\`bash
+git add .
+git commit -m "Message"
+\`\`\`
+(In writing this guide we had to escape the backticks with a backslash for demonstration, but in a real Markdown file you wouldn’t include the backslashes before the backticks.)
+This would produce a code block:
+git add .
+git commit -m "Message"
+which is rendered in a monospaced font block.
+Links:
+To add a hyperlink, use the format [link text](http://url). For example:
+Please visit [GitHub](https://github.com) for more info.
+This renders as: Please visit GitHub for more info.
+Images:
+Adding an image uses similar syntax to links, but with an exclamation mark: ![alt text](imageurl.png). If the image is in your repo, you can use a relative path. For example, if you have an image file screenshot.png in your repository, you could do:
+![Screenshot of app](screenshot.png)
+This will show the image in the README when viewed on GitHub. Make sure to commit the image file as well.
+Be mindful of image size; large images can bloat your repo. Often, linking to an externally hosted image or using a smaller image is better.
+Blockquotes:
+If you want to highlight a note or quote, start a line with >.
+> **Note:** This is an important note.
+This will render a indented block with a gray bar on the side, commonly used for callouts or quoted text. (We used a similar style above for the “Common Mistake” callouts by just making the text bold; blockquote could be used as well.)
+Tables: (Optional, more advanced)
+You can create tables using pipes | and hyphens. For example:
+| Item       | Description           | Price |
+|------------|-----------------------|-------|
+| Pencil     | Wooden pencil, HB     | $0.50 |
+| Notebook   | 100-page lined        | $2.00 |
+This will render a table with three columns. Tables are a bit tricky to edit manually but can be useful for structured info.
+For a quick reference, GitHub provides a cheatsheet and guide for Markdown
+github.com
+github.com
+. You can always preview how your Markdown will look: VS Code has a Markdown preview feature (open a .md file, then press Ctrl+Shift+V or Cmd+Shift+V to open a preview side by side).
+Keeping the README Updated
+As you continue your project, treat the README as part of your codebase:
+If you add a new feature, update the README’s documentation.
+If you change a setup step or requirement, make sure the README reflects that.
+If you find a mistake or typo in the README, correct it. These changes should be committed just like code changes.
+Your README in this project might include sections like:
+Introduction or Overview of the project (what it is, what it does).
+Installation or Setup instructions (e.g., if someone needs to install certain software to run it).
+Usage examples (how to run the program or use the project).
+Contributing guidelines (if you want others to contribute).
+License (if applicable).
+etc.
+For now, even if it’s just a school or personal project, writing a clear README is good practice. Remember to commit and push your README changes too, so they appear on GitHub.
+Final Thoughts
+You have now set up Git for your project and connected it to GitHub! Here’s a summary of what we accomplished:
+Installed VS Code and Git on your computer.
+Created a project folder and opened it in VS Code.
+Configured Git with your name and email so your commits are labeled properly.
+Initialized a Git repository in the folder (creating a .git directory that tracks changes).
+Created a README.md file and made an initial commit to record that file in version control.
+Created a GitHub repository and linked your local repo to it (adding a remote).
+Pushed your commit to GitHub, making the code available online.
+Learned how to use VS Code’s Source Control interface to manage changes (staging, committing, pushing) visually.
+Practiced syncing changes, and learned about committing best practices and common pitfalls (like staging and branch naming).
+Cloned a repository from GitHub to understand how to get code from remote to local.
+Covered maintaining a README with Markdown, including examples of Markdown syntax for formatting text.
+With these skills, you can now confidently work on coding projects and use Git for version control. You’ll be able to keep track of your changes, back up your work on GitHub, and even collaborate with others by sharing the repository. Next steps to consider:
+Creating additional files and making more commits to continue practice. Try editing code files and see how Git tracks those changes.
+Experiment with branching (git branch and git checkout -b <newbranch>) for making experimental changes without affecting main.
+Collaborate: if possible, have a friend fork your repo or add them as a collaborator to practice pulling their changes.
+Learn about resolving merge conflicts (this happens when two commits change the same part of a file differently – Git will ask you to choose which change to keep or merge them).
+Explore more advanced Git commands and features (like git log to view history, git diff to see changes, git stash to save work temporarily, etc.) as you become comfortable.
+Git is a powerful tool and there's a lot more to it beyond the basics, but the foundational workflow you learned here will serve you in almost all common scenarios. Keep this guide handy as a reference, and happy coding with Git and GitHub!
